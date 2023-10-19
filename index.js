@@ -27,10 +27,6 @@ const run = async () => {
     const productCollection = client.db("autoMob").collection("product");
     const cartListCollection = client.db("autoMob").collection("cart");
 
-    app.get("/", async (req, res) => {
-      res.send("Helloooooooo............");
-    });
-
     app.post("/addproduct", async (req, res) => {
       const productData = req.body;
 
@@ -77,7 +73,10 @@ const run = async () => {
       res.send(result.acknowledged);
     });
 
-    // app.patch('/cartlist/:email')
+    app.put("/product/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log(id);
+    });
 
     app.listen(port, () => {
       console.log(`Server is running at http://localhost:${port}`);
@@ -92,11 +91,3 @@ const run = async () => {
   }
 };
 run().catch(console.dir);
-
-// app.get("/", async (req, res) => {
-//   res.send("Helloooooooo............");
-// });
-
-// app.listen(port, () => {
-//   console.log(`Server is running at http://localhost:${port}`);
-// });
