@@ -52,7 +52,6 @@ const run = async () => {
       const result = await productCollection.findOne({ _id: new ObjectId(id) });
 
       console.log(result);
-
       res.send(result);
     });
 
@@ -75,7 +74,21 @@ const run = async () => {
 
     app.put("/product/:id", async (req, res) => {
       const id = req.params.id;
+      const productData = req.body;
+      console.log("==========================");
       console.log(id);
+      console.log(productData);
+      const result = await productCollection.updateOne(
+        {
+          _id: new ObjectId(id),
+        },
+        {
+          $set: {
+            ...productData,
+          },
+        }
+      );
+      res.send(result.acknowledged);
     });
 
     app.listen(port, () => {
