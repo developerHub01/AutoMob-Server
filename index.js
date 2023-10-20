@@ -24,6 +24,10 @@ const run = async () => {
     const productCollection = client.db("autoMob").collection("product");
     const cartListCollection = client.db("autoMob").collection("cart");
 
+    app.get('/', async(req, res)=>{
+      res.send('Home route..............');
+    })
+
     app.post("/addproduct", async (req, res) => {
       const productData = req.body;
 
