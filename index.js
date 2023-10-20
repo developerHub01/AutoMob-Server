@@ -9,9 +9,6 @@ const uri = process.env.DB;
 app.use(cors());
 app.use(express.json());
 
-// const uri =
-//   "mongodb+srv://shakil102043:shakil102043@cluster0.xrqokgc.mongodb.net/?retryWrites=true&w=majority";
-
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -75,9 +72,6 @@ const run = async () => {
     app.put("/product/:id", async (req, res) => {
       const id = req.params.id;
       const productData = req.body;
-      console.log("==========================");
-      console.log(id);
-      console.log(productData);
       const result = await productCollection.updateOne(
         {
           _id: new ObjectId(id),
