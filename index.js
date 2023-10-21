@@ -24,9 +24,9 @@ const run = async () => {
     const productCollection = client.db("autoMob").collection("product");
     const cartListCollection = client.db("autoMob").collection("cart");
 
-    app.get('/', async(req, res)=>{
-      res.send('Home route..............');
-    })
+    app.get("/", async (req, res) => {
+      res.send("Home route..............");
+    });
 
     app.post("/addproduct", async (req, res) => {
       const productData = req.body;
@@ -56,16 +56,17 @@ const run = async () => {
       res.send(result);
     });
 
-    app.get("/cartlist", async (req, res) => {
+    app.get("/cartlist/:email", async (req, res) => {
+      console.log("==============");
       const email = req.params.email;
-      const result = await cartListCollection.find().toArray();
-
-      console.log(result);
-      res.send(result);
+      console.log(email);
+      const result = await cartListCollection.find({ email }).toArray();
+      res.send(result ||"{}");
     });
 
     app.post("/cartlist", async (req, res) => {
       const cartData = req.body;
+      const email = req.params.email;
       console.log(cartData);
       const result = await cartListCollection.insertOne(cartData);
 
